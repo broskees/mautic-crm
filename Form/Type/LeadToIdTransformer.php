@@ -2,19 +2,15 @@
 
 namespace MauticPlugin\CustomCrmBundle\Form\Type;
 
-use Mautic\CoreBundle\Model\CommonModel;
+use Mautic\LeadBundle\Model\LeadModel;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class LeadToIdTransformer implements DataTransformerInterface
 {
-    /** @var CommonModel */
-    private $model;
-
-    public function __construct(CommonModel $model)
-    {
-        $this->model = $model;
-    }
+    public function __construct(
+        private LeadModel $model,
+    ) {}
 
     public function transform($lead)
     {

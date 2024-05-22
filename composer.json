@@ -1,0 +1,17 @@
+{
+    "name": "broskees/custom-crm",
+    "description": "Custom CRM Plugin",
+    "type": "mautic-plugin",
+    "keywords": [
+        "mautic",
+        "plugin",
+        "crm"
+    ],
+    "extra": {
+        "install-directory-name": "CustomCrmBundle"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "mautic/core-lib": "^5.0"
+    }
+}

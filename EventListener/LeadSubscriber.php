@@ -2,24 +2,30 @@
 
 namespace MauticPlugin\CustomCrmBundle\EventListener;
 
-use Mautic\CoreBundle\EventListener\CommonSubscriber;
+use Mautic\CoreBundle\Factory\MauticFactory;
 use Mautic\LeadBundle\Event\LeadTimelineEvent;
 use Mautic\LeadBundle\LeadEvents;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-class LeadSubscriber extends CommonSubscriber
+class LeadSubscriber implements EventSubscriberInterface
 {
-    static public function getSubscribedEvents()
+    public function __construct(
+        private TranslatorInterface $translator,
+        private MauticFactory $factory,
+    ) {}
+
+    public static function getSubscribedEvents(): array
     {
-        return array(
+        return [
             LeadEvents::TIMELINE_ON_GENERATE => array('onTimeLineGenerate', 0)
-        );
+        ];
     }
 
     public function onTimeLineGenerate(LeadTimelineEvent $event)
     {
         $this->addOpportunityEvents($event);
         $this->addTaskEvents($event);
-
     }
 
     private function addOpportunityEvents(LeadTimelineEvent $event)

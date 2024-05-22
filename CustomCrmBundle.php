@@ -18,18 +18,22 @@ class CustomCrmBundle extends PluginBundleBase
      * @param MauticFactory $factory
      * @param array $metadata
      * @param null $installedSchema
+     *
+     * @throws \Exception
      */
-    static public function onPluginInstall(Plugin $plugin, MauticFactory $factory, $metadata = null, $installedSchema = null)
+    public static function onPluginInstall(Plugin $plugin, MauticFactory $factory, $metadata = null, $installedSchema = null): void
     {
-        if (is_array($metadata)) {
-            foreach ($metadata as $key => $entity) {
-                /** @var \Doctrine\ORM\Mapping\ClassMetadata $entity */
-                if ($factory->getDatabase()->getSchemaManager()->tablesExist($entity->getTableName())) {
-                    unset($metadata[$key]);
-                }
-            }
-
-            self::installPluginSchema($metadata, $factory);
+        if (! is_array($metadata)) {
+            return;
         }
+
+        foreach ($metadata as $key => $entity) {
+            /** @var \Doctrine\ORM\Mapping\ClassMetadata $entity */
+            if ($factory->getDatabase()->getSchemaManager()->tablesExist($entity->getTableName())) {
+                unset($metadata[$key]);
+            }
+        }
+
+        self::installPluginSchema($metadata, $factory);
     }
 }

@@ -4,6 +4,7 @@ namespace MauticPlugin\CustomCrmBundle\Model;
 
 use Mautic\CoreBundle\Model\FormModel;
 use MauticPlugin\CustomCrmBundle\Entity\Task;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class TaskModel extends FormModel
@@ -13,7 +14,7 @@ class TaskModel extends FormModel
         return $this->em->getRepository('CustomCrmBundle:Task');
     }
 
-    public function createForm($entity, $formFactory, $action = null, $options = array())
+    public function createForm($entity, $formFactory, $action = null, $options = array()): FormInterface
     {
         if (!$entity instanceof Task) {
             throw new MethodNotAllowedHttpException(array('Task'));

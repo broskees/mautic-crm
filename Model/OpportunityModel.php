@@ -4,6 +4,7 @@ namespace MauticPlugin\CustomCrmBundle\Model;
 
 use Mautic\CoreBundle\Model\FormModel;
 use MauticPlugin\CustomCrmBundle\Entity\Opportunity;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class OpportunityModel extends FormModel
@@ -18,7 +19,7 @@ class OpportunityModel extends FormModel
         return 'customcrm:opportunity';
     }
 
-    public function getEntity($id = null)
+    public function getEntity($id = null): ?object
     {
         if (!$id) {
             return new Opportunity();
@@ -27,7 +28,7 @@ class OpportunityModel extends FormModel
         return parent::getEntity($id);
     }
 
-    public function createForm($entity, $formFactory, $action = null, $options = array())
+    public function createForm($entity, $formFactory, $action = null, $options = array()): FormInterface
     {
         if (!$entity instanceof Opportunity) {
             throw new MethodNotAllowedHttpException(array('Opportunity'), 'Entity must be of class Opportunity()');
@@ -40,7 +41,7 @@ class OpportunityModel extends FormModel
         return $formFactory->create('customcrm_opportunity', $entity, $options);
     }
 
-    public function saveEntity($entity, $unlock = true)
+    public function saveEntity($entity, $unlock = true): void
     {
         if (!$entity instanceof Opportunity) {
             throw new \InvalidArgumentException('entity is not an instance of Opportunity');

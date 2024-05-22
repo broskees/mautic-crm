@@ -3,17 +3,21 @@
 namespace MauticPlugin\CustomCrmBundle\Controller;
 
 use Mautic\LeadBundle\Controller\LeadController as BaseLeadController;
+use Mautic\PluginBundle\Helper\IntegrationHelper;
+use Symfony\Component\HttpFoundation\Request;
 
 class LeadController extends BaseLeadController
 {
     /**
      * Loads a specific lead into the detailed panel
      *
+     * @param Request $request
+     * @param IntegrationHelper $integrationHelper
      * @param $objectId
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function viewAction($objectId)
+    public function viewAction(Request $request, IntegrationHelper $integrationHelper, $objectId)
     {
         /** @var \Mautic\LeadBundle\Model\LeadModel $model */
         $model = $this->getModel('lead.lead');

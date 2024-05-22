@@ -3,17 +3,21 @@
 namespace MauticPlugin\CustomCrmBundle\EventListener;
 
 use Mautic\CalendarBundle\CalendarEvents;
-use Mautic\CalendarBundle\Event\CalendarGeneratorEvent;
-use Mautic\CoreBundle\EventListener\CommonSubscriber;
 use Mautic\CoreBundle\Helper\DateTimeHelper;
 use MauticPlugin\CustomCrmBundle\Entity\Task;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class CalendarSubscriber extends CommonSubscriber
+class CalendarSubscriber implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public function __construct(
+        private \Mautic\CoreBundle\Factory\MauticFactory $factory
+    ) {}
+
+    public static function getSubscribedEvents(): array
     {
         return array(
-            CalendarEvents::CALENDAR_ON_GENERATE => array('onCalendarGenerate', 0),
+            # TODO: Where are these events defined now?
+            # CalendarEvents::CALENDAR_ON_GENERATE => array('onCalendarGenerate', 0),
         );
     }
 

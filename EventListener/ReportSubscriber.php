@@ -2,14 +2,18 @@
 
 namespace MauticPlugin\CustomCrmBundle\EventListener;
 
-use Mautic\CoreBundle\EventListener\CommonSubscriber;
 use Mautic\ReportBundle\Event\ReportBuilderEvent;
 use Mautic\ReportBundle\Event\ReportGeneratorEvent;
 use Mautic\ReportBundle\ReportEvents;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ReportSubscriber extends CommonSubscriber
+class ReportSubscriber implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public function __construct(
+        private \Mautic\CoreBundle\Factory\MauticFactory $factory
+    ) {}
+
+    public static function getSubscribedEvents(): array
     {
         return array(
             ReportEvents::REPORT_ON_BUILD => array('onReportBuilder', 0),
